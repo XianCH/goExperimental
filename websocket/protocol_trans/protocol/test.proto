@@ -1,0 +1,7 @@
+syntax = "proto3";
+package json;
+
+message TestMessage {
+    double float64 = 1;
+    bytes obj = 2;
+}

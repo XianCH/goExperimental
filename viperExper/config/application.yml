@@ -1,0 +1,12 @@
+server:
+  port: 1016
+datasource:
+  driverName: mysql
+  host: 127.0.0.1
+  port: 3306
+  database: gotest
+  username: root
+  password: 3953
+  charset: utf8
+  loc: Asia/Shanghai
+
