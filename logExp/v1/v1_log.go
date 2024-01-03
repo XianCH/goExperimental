@@ -33,6 +33,7 @@ func NewCustomLogger(logFilePath string) (*CustomLogger, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	return &CustomLogger{logFile: file}, nil
 }
 

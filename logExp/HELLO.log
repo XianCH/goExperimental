@@ -1,0 +1,12 @@
+[2024-01-04 01:04:34] [INFO]this is INFO LEVEL%!(EXTRA []interface {}=[[]])[/home/x14n/code/goproj/x14n/goExperimental/logExp/v2/v2_logger.go:58]
+[2024-01-04 01:15:02] [INFO]this is INFO LEVEL%!(EXTRA []interface {}=[[]])[/home/x14n/code/goproj/x14n/goExperimental/logExp/v2/v2_logger.go:62]
+[2024-01-04 01:19:56] [INFO] [this is INFO LEVEL] [/home/x14n/code/goproj/x14n/goExperimental/logExp/v2/v2_logger.go:68]
+[2024-01-04 01:22:18] [WARN] [dial tcp 127.0.0.1:8000: connect: connection refused] [/home/x14n/code/goproj/x14n/goExperimental/logExp/v2/v2_logger.go:72]
+[2024-01-04 01:28:14] [ERROR] dial tcp 127.0.0.1:8000: connect: connection refused [/home/x14n/code/goproj/x14n/goExperimental/logExp/main.go:19]
+[2024-01-04 01:31:12] [ERROR] dial tcp 127.0.0.1:8000: connect: connection refused [/home/x14n/code/goproj/x14n/goExperimental/logExp/main.go:19]
+[2024-01-04 01:40:14] [INFO] [[dial tcp 127.0.0.1:8000: connect: connection refused] [%s:%d] /home/x14n/code/goproj/x14n/goExperimental/logExp/main.go 19
+]
+[2024-01-04 01:41:13] [INFO] [[dial tcp 127.0.0.1:8000: connect: connection refused] [/home/x14n/code/goproj/x14n/goExperimental/logExp/main.go:19]]
+[2024-01-04 01:43:02] [INFO] [[dial tcp 127.0.0.1:8000: connect: connection refused] /home/x14n/code/goproj/x14n/goExperimental/logExp/main.go:19]
+[2024-01-04 01:45:57] [INFO] [[dial tcp 127.0.0.1:8000: connect: connection refused] /home/x14n/code/goproj/x14n/goExperimental/logExp/main.go:19]
+[2024-01-04 01:49:54] [INFO] dial tcp 127.0.0.1:8000: connect: connection refused [/home/x14n/code/goproj/x14n/goExperimental/logExp/main.go:19]
