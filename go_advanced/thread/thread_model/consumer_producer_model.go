@@ -1,4 +1,4 @@
-package thread_model
+package main
 
 import (
 	"fmt"
