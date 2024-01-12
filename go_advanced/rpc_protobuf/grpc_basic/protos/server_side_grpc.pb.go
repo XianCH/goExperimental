@@ -19,14 +19,15 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	ServerSide_ServerSide_FullMethodName = "/ServerSide/ServerSide"
+	ServerSide_ServerSideHello_FullMethodName = "/ServerSide/ServerSideHello"
 )
 
 // ServerSideClient is the client API for ServerSide service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ServerSideClient interface {
-	ServerSide(ctx context.Context, in *ServerSideRequest, opts ...grpc.CallOption) (*ServerSideResponse, error)
+	// 一个ServerSideHello的方法
+	ServerSideHello(ctx context.Context, in *ServerSideRequest, opts ...grpc.CallOption) (ServerSide_ServerSideHelloClient, error)
 }
 
 type serverSideClient struct {
@@ -37,20 +38,44 @@ func NewServerSideClient(cc grpc.ClientConnInterface) ServerSideClient {
 	return &serverSideClient{cc}
 }
 
-func (c *serverSideClient) ServerSide(ctx context.Context, in *ServerSideRequest, opts ...grpc.CallOption) (*ServerSideResponse, error) {
-	out := new(ServerSideResponse)
-	err := c.cc.Invoke(ctx, ServerSide_ServerSide_FullMethodName, in, out, opts...)
+func (c *serverSideClient) ServerSideHello(ctx context.Context, in *ServerSideRequest, opts ...grpc.CallOption) (ServerSide_ServerSideHelloClient, error) {
+	stream, err := c.cc.NewStream(ctx, &ServerSide_ServiceDesc.Streams[0], ServerSide_ServerSideHello_FullMethodName, opts...)
 	if err != nil {
 		return nil, err
 	}
-	return out, nil
+	x := &serverSideServerSideHelloClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type ServerSide_ServerSideHelloClient interface {
+	Recv() (*ServerSideResponse, error)
+	grpc.ClientStream
+}
+
+type serverSideServerSideHelloClient struct {
+	grpc.ClientStream
+}
+
+func (x *serverSideServerSideHelloClient) Recv() (*ServerSideResponse, error) {
+	m := new(ServerSideResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
 }
 
 // ServerSideServer is the server API for ServerSide service.
 // All implementations must embed UnimplementedServerSideServer
 // for forward compatibility
 type ServerSideServer interface {
-	ServerSide(context.Context, *ServerSideRequest) (*ServerSideResponse, error)
+	// 一个ServerSideHello的方法
+	ServerSideHello(*ServerSideRequest, ServerSide_ServerSideHelloServer) error
 	mustEmbedUnimplementedServerSideServer()
 }
 
@@ -58,8 +83,8 @@ type ServerSideServer interface {
 type UnimplementedServerSideServer struct {
 }
 
-func (UnimplementedServerSideServer) ServerSide(context.Context, *ServerSideRequest) (*ServerSideResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ServerSide not implemented")
+func (UnimplementedServerSideServer) ServerSideHello(*ServerSideRequest, ServerSide_ServerSideHelloServer) error {
+	return status.Errorf(codes.Unimplemented, "method ServerSideHello not implemented")
 }
 func (UnimplementedServerSideServer) mustEmbedUnimplementedServerSideServer() {}
 
@@ -74,22 +99,25 @@ func RegisterServerSideServer(s grpc.ServiceRegistrar, srv ServerSideServer) {
 	s.RegisterService(&ServerSide_ServiceDesc, srv)
 }
 
-func _ServerSide_ServerSide_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ServerSideRequest)
-	if err := dec(in); err != nil {
-		return nil, err
+func _ServerSide_ServerSideHello_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(ServerSideRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
 	}
-	if interceptor == nil {
-		return srv.(ServerSideServer).ServerSide(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ServerSide_ServerSide_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServerSideServer).ServerSide(ctx, req.(*ServerSideRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+	return srv.(ServerSideServer).ServerSideHello(m, &serverSideServerSideHelloServer{stream})
+}
+
+type ServerSide_ServerSideHelloServer interface {
+	Send(*ServerSideResponse) error
+	grpc.ServerStream
+}
+
+type serverSideServerSideHelloServer struct {
+	grpc.ServerStream
+}
+
+func (x *serverSideServerSideHelloServer) Send(m *ServerSideResponse) error {
+	return x.ServerStream.SendMsg(m)
 }
 
 // ServerSide_ServiceDesc is the grpc.ServiceDesc for ServerSide service.
@@ -98,12 +126,13 @@ func _ServerSide_ServerSide_Handler(srv interface{}, ctx context.Context, dec fu
 var ServerSide_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "ServerSide",
 	HandlerType: (*ServerSideServer)(nil),
-	Methods: []grpc.MethodDesc{
+	Methods:     []grpc.MethodDesc{},
+	Streams: []grpc.StreamDesc{
 		{
-			MethodName: "ServerSide",
-			Handler:    _ServerSide_ServerSide_Handler,
+			StreamName:    "ServerSideHello",
+			Handler:       _ServerSide_ServerSideHello_Handler,
+			ServerStreams: true,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
 	Metadata: "server_side.proto",
 }

@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option go_package = "grpc_basic/protos";
+
+message BiRequest{
+  string message = 1;
+}
+
+message BiResponse{
+  string message = 1;
+}
+
+service Bidireactional{
+  rpc BidirectionalHello (stream BiRequest)returns(stream BiResponse);
+}

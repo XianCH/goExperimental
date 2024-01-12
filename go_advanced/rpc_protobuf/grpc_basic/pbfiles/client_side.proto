@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option go_package = "grpc_basic/protos";
+
+
+message ClientResponse{
+  string resp = 1;
+}
+
+message ClientRequest{
+  string req = 1;
+}
+
+service clientSide{
+  rpc ClientSideHello (stream ClientRequest) returns (ClientResponse);
+}
+//syntax = "proto3";
+
+//option go_package = "grpc_basic/protos";
+
+
+//protoc --go_out=../protos --go-grpc_out=../protos *.proto
