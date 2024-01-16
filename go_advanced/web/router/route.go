@@ -2,13 +2,14 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 	"strings"
 )
 
 type TrieNode struct {
 	children map[string]*TrieNode
 	isEnd    bool
-	handler  func()
+	handler  func(http.ResponseWriter, *http.Request)
 }
 
 type Router struct {
@@ -19,7 +20,7 @@ func NewRouter() *Router {
 	return &Router{root: &TrieNode{children: make(map[string]*TrieNode)}}
 }
 
-func (r *Router) AddRoute(path string, handler func()) {
+func (r *Router) AddRoute(path string, handler func(http.ResponseWriter, *http.Request)) {
 	node := r.root
 	segments := strings.Split(path, "/")
 
@@ -39,7 +40,7 @@ func (r *Router) AddRoute(path string, handler func()) {
 	node.handler = handler
 }
 
-func (r *Router) FindHandler(path string) (func(), bool) {
+func (r *Router) FindHandler(path string) (func(http.ResponseWriter, *http.Request), bool) {
 	node := r.root
 	segments := strings.Split(path, "/")
 
@@ -63,26 +64,27 @@ func (r *Router) FindHandler(path string) (func(), bool) {
 func main() {
 	router := NewRouter()
 
-	router.AddRoute("/home", func() {
-		fmt.Println("Handler for /home")
+	router.AddRoute("/home", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintln(w, "Handler for /home")
 	})
 
-	router.AddRoute("/user/profile", func() {
-		fmt.Println("Handler for /user/profile")
+	router.AddRoute("/user/profile", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintln(w, "Handler for /user/profile")
 	})
 
-	router.AddRoute("/user/settings", func() {
-		fmt.Println("Handler for /user/settings")
+	router.AddRoute("/user/settings", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintln(w, "Handler for /user/settings")
 	})
 
-	paths := []string{"/home", "/user/profile", "/user/settings", "/unknown"}
-
-	for _, path := range paths {
-		handler, found := router.FindHandler(path)
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		handler, found := router.FindHandler(r.URL.Path)
 		if found {
-			handler()
+			handler(w, r)
 		} else {
-			fmt.Printf("No handler found for %s\n", path)
+			http.NotFound(w, r)
 		}
-	}
+	})
+
+	fmt.Println("Server is listening on :8080")
+	http.ListenAndServe(":8080", nil)
 }
