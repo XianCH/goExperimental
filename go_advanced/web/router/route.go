@@ -1,90 +1,34 @@
-package main
+package router
 
-import (
-	"fmt"
-	"net/http"
-	"strings"
+import "net/http"
+
+type nodeType uint8
+
+const (
+	static nodeType = iota
+	root
+	param
 )
 
-type TrieNode struct {
-	children map[string]*TrieNode
-	isEnd    bool
-	handler  func(http.ResponseWriter, *http.Request)
+type node struct {
+	path      string
+	WildChild string
+	Children  *node
+	nType     nodeType
+	handle    Handle
 }
 
-type Router struct {
-	root *TrieNode
+type router struct {
+	root *node
 }
 
-func NewRouter() *Router {
-	return &Router{root: &TrieNode{children: make(map[string]*TrieNode)}}
-}
+type Handle func(*http.Request, http.ResponseWriter)
 
-func (r *Router) AddRoute(path string, handler func(http.ResponseWriter, *http.Request)) {
-	node := r.root
-	segments := strings.Split(path, "/")
-
-	for _, segment := range segments {
-		if segment == "" {
-			continue
-		}
-
-		child, exists := node.children[segment]
-		if !exists {
-			child = &TrieNode{children: make(map[string]*TrieNode)}
-			node.children[segment] = child
-		}
-		node = child
+// 创建新的路由
+func NewRouter() *router {
+	return &router{
+		root: new(node),
 	}
-	node.isEnd = true
-	node.handler = handler
 }
 
-func (r *Router) FindHandler(path string) (func(http.ResponseWriter, *http.Request), bool) {
-	node := r.root
-	segments := strings.Split(path, "/")
-
-	for _, segment := range segments {
-		if segment == "" {
-			continue
-		}
-
-		child, exists := node.children[segment]
-		if !exists {
-			return nil, false
-		}
-		node = child
-	}
-	if node.isEnd {
-		return node.handler, true
-	}
-	return nil, false
-}
-
-func main() {
-	router := NewRouter()
-
-	router.AddRoute("/home", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintln(w, "Handler for /home")
-	})
-
-	router.AddRoute("/user/profile", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintln(w, "Handler for /user/profile")
-	})
-
-	router.AddRoute("/user/settings", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintln(w, "Handler for /user/settings")
-	})
-
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		handler, found := router.FindHandler(r.URL.Path)
-		if found {
-			handler(w, r)
-		} else {
-			http.NotFound(w, r)
-		}
-	})
-
-	fmt.Println("Server is listening on :8080")
-	http.ListenAndServe(":8080", nil)
-}
+func (r *router) addRouter(path string, handler Handle) error {}

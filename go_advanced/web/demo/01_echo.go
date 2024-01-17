@@ -1,22 +1,27 @@
 package main
 
-func echo(w http.ResponseWriter)
-
-func package main
-
 import (
-  "fmt"
-  "net/http"
-  "time"
+	"log"
+	"net/http"
+	"time"
 )
 
-func greet(w http.ResponseWriter, r *http.Request) {
-  fmt.Fprintf(w, "Hello World! %s", time.Now())
+func hello(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("hello"))
 }
 
-func main() {
-  http.HandleFunc("/", greet)
-  http.ListenAndServe(":8080", nil)
-}()  {
-  
+func timeMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(wr http.ResponseWriter, r *http.Request) {
+		timeStart := time.Now()
+
+		// next handler
+		next.ServeHTTP(wr, r)
+
+		timeElapsed := time.Since(timeStart)
+		log.Println(timeElapsed)
+	})
+}
+
+func main_test() {
+	http.Handle("/", timeMiddleware(http.HandlerFunc(hello)))
 }
