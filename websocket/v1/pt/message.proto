@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package pt;
+
+//protoc --go_out=./proto message.proto
+option go_package ="./;pt";
+
+message Message{
+    string from =1;
+    string to = 2;
+    string name = 3;
+    string msg =4;
+    string time = 5;
+}
+
+

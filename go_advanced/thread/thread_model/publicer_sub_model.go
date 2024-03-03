@@ -1,4 +1,4 @@
-package main
+package thread_model
 
 import (
 	"fmt"
@@ -89,7 +89,7 @@ func (p *Publisher) Close() {
 	}
 }
 
-func main() {
+func test_pubsub_model() {
 	p := NewPublisher(100*time.Millisecond, 10)
 	defer p.Close()
 
