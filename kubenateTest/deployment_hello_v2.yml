@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment 
+metadata: 
+  name: hellok8s-deployment
+spec:
+  relicates: 3
+  selector: 
+    matchLables: 
+      app: hellok8s
+  template:
+    metadata:
+      lables:
+        app: hellok8s
+    spec:
+      containers:
+        - image: x14n/hellok8s:v2
+          name: hellok8s-container

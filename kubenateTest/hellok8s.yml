@@ -1,0 +1,9 @@
+#hellok8s.yml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hellok8s-container
+spec:
+  containers:
+    - name: hellok8s-container
+      image: x14n/hellok8s:v1
