@@ -1,0 +1,14 @@
+/home/x14n/code/goproj/x14n/go-unity-test/01_hello/client/bin/Debug/net8.0/client
+/home/x14n/code/goproj/x14n/go-unity-test/01_hello/client/bin/Debug/net8.0/client.deps.json
+/home/x14n/code/goproj/x14n/go-unity-test/01_hello/client/bin/Debug/net8.0/client.runtimeconfig.json
+/home/x14n/code/goproj/x14n/go-unity-test/01_hello/client/bin/Debug/net8.0/client.dll
+/home/x14n/code/goproj/x14n/go-unity-test/01_hello/client/bin/Debug/net8.0/client.pdb
+/home/x14n/code/goproj/x14n/go-unity-test/01_hello/client/obj/Debug/net8.0/client.GeneratedMSBuildEditorConfig.editorconfig
+/home/x14n/code/goproj/x14n/go-unity-test/01_hello/client/obj/Debug/net8.0/client.AssemblyInfoInputs.cache
+/home/x14n/code/goproj/x14n/go-unity-test/01_hello/client/obj/Debug/net8.0/client.AssemblyInfo.cs
+/home/x14n/code/goproj/x14n/go-unity-test/01_hello/client/obj/Debug/net8.0/client.csproj.CoreCompileInputs.cache
+/home/x14n/code/goproj/x14n/go-unity-test/01_hello/client/obj/Debug/net8.0/client.dll
+/home/x14n/code/goproj/x14n/go-unity-test/01_hello/client/obj/Debug/net8.0/refint/client.dll
+/home/x14n/code/goproj/x14n/go-unity-test/01_hello/client/obj/Debug/net8.0/client.pdb
+/home/x14n/code/goproj/x14n/go-unity-test/01_hello/client/obj/Debug/net8.0/client.genruntimeconfig.cache
+/home/x14n/code/goproj/x14n/go-unity-test/01_hello/client/obj/Debug/net8.0/ref/client.dll

@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "82b3gCT2YafcKzm4M7vIODj/eoGnhRdigqpQtg//i7TFxZSMIZir5Lu/CjOl7qgfa8VZiBrzlPAgyjl8Lwe+Tw==",
+  "success": true,
+  "projectFilePath": "/home/x14n/code/goproj/x14n/go-unity-test/01_hello/client/client.csproj",
+  "expectedPackageFiles": [
+    "/home/x14n/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.1/microsoft.aspnetcore.app.ref.8.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
