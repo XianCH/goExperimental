@@ -1,6 +1,7 @@
 package lru
 
 import (
+	"fmt"
 	"reflect"
 	"testing"
 )
@@ -14,11 +15,20 @@ func (d String) Len() int {
 func TestGet(t *testing.T) {
 	lru := New(int64(0), nil)
 	lru.Add("key1", String("1234"))
+	lru.Add("key3", String("hello"))
 	if v, ok := lru.Get("key1"); !ok || string(v.(String)) != "1234" {
 		t.Fatalf("cache hit key1=1234 failed")
+	} else {
+		fmt.Println(v)
 	}
 	if _, ok := lru.Get("key2"); ok {
 		t.Fatalf("cache miss key2 failed")
+	}
+	if _, ok := lru.Get("key3"); !ok {
+		t.Fatalf("cache hit key1=1234 failed")
+	}
+	if v, ok := lru.Get("key3"); ok {
+		fmt.Println(v)
 	}
 }
 

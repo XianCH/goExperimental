@@ -1,4 +1,4 @@
-package cache_14n
+package lru
 
 import (
 	"errors"
@@ -24,7 +24,7 @@ func (dl *DoublyLinkedList) Init() *DoublyLinkedList {
 	return dl
 }
 
-func New() *DoublyLinkedList {
+func NewList() *DoublyLinkedList {
 	return new(DoublyLinkedList).Init()
 }
 

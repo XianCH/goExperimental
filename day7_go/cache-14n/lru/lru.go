@@ -1,17 +1,14 @@
 package lru
 
 import (
-	"log"
 	"sync"
-
-	list "github.com/x14n/goExperimental/day7_go/cache-14n"
 )
 
 type Cache struct {
-	ll       *list.DoublyLinkedList
+	ll       *DoublyLinkedList
 	maxBytes int64 //Cache max bytes
 	nBytes   int64 // Cache current bytes
-	cache    map[string]*list.Node
+	cache    map[string]*Node
 	mu       sync.Mutex
 
 	OnEvicted func(key string, value Value) //executed when an entry is purged
@@ -30,8 +27,8 @@ func New(maxBytes int64, onEvicted func(string, Value)) *Cache {
 	return &Cache{
 		maxBytes:  maxBytes,
 		OnEvicted: onEvicted,
-		cache:     make(map[string]*list.Node),
-		ll:        list.New(),
+		cache:     make(map[string]*Node),
+		ll:        NewList(),
 	}
 }
 
@@ -46,7 +43,7 @@ func (c *Cache) Get(key string) (Value, bool) {
 	if node, ok := c.cache[key]; ok {
 		c.ll.MoveToFront(node)
 		if entry, ok := node.Value.(*entry); ok {
-			log.Printf("lru Cache get %d", entry.value)
+			// log.Printf("lru Cache get %d", entry.value)
 			return entry.value, true
 		}
 	}

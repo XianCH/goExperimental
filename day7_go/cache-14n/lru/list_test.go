@@ -1,11 +1,11 @@
-package cache_14n
+package lru
 
 import (
 	"testing"
 )
 
 func TestList(t *testing.T) {
-	dl := New()
+	dl := NewList()
 
 	for i := 0; i < 10; i++ {
 		dl.PushNodeToFront(i)
