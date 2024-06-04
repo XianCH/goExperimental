@@ -1,0 +1,19 @@
+syntax = "proto3";
+package protocol;
+
+option go_package = "./;protocol";
+
+message Message {
+  string avatar = 1; // user avatar
+  string from_username = 2; // message sender name
+  string from = 3; // message sender UUID
+  string to = 4; // single receiver UUID (optional, used for single chat)
+  string group_id = 5; // group ID (optional, used for group chat)
+  string content = 6; // text message content
+  int32 content_type = 7; // Message content type: 1.text 2.file 3.img 4.audio 5 video 6 voice chat 7.video chat
+  string type = 8; // 消息传输类型：如果是心跳消息，该内容为heatbeat,在线视频或者音频为webrtc
+  int32 message_type = 9; // Message type, 1. Single chat 2. Group chat
+  string url = 10; // picture, video, audio path
+  string file_suffix = 11; // 文件后缀，如果通过二进制头不能解析文件后缀，使用该后缀
+  bytes file = 12; // If it is a binary file such as pictures, files, videos, etc.
+}
