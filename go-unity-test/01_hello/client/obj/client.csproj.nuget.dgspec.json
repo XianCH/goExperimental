@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/x14n/code/goproj/x14n/go-unity-test/01_hello/client/client.csproj": {}
+    "/home/x14n/code/goproj/x14n/goExperimental/go-unity-test/01_hello/client/client.csproj": {}
   },
   "projects": {
-    "/home/x14n/code/goproj/x14n/go-unity-test/01_hello/client/client.csproj": {
+    "/home/x14n/code/goproj/x14n/goExperimental/go-unity-test/01_hello/client/client.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/x14n/code/goproj/x14n/go-unity-test/01_hello/client/client.csproj",
+        "projectUniqueName": "/home/x14n/code/goproj/x14n/goExperimental/go-unity-test/01_hello/client/client.csproj",
         "projectName": "client",
-        "projectPath": "/home/x14n/code/goproj/x14n/go-unity-test/01_hello/client/client.csproj",
+        "projectPath": "/home/x14n/code/goproj/x14n/goExperimental/go-unity-test/01_hello/client/client.csproj",
         "packagesPath": "/home/x14n/.nuget/packages/",
-        "outputPath": "/home/x14n/code/goproj/x14n/go-unity-test/01_hello/client/obj/",
+        "outputPath": "/home/x14n/code/goproj/x14n/goExperimental/go-unity-test/01_hello/client/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/x14n/.nuget/NuGet/NuGet.Config"
@@ -51,7 +51,7 @@
           "downloadDependencies": [
             {
               "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[8.0.1, 8.0.1]"
+              "version": "[8.0.5, 8.0.5]"
             }
           ],
           "frameworkReferences": {
@@ -59,7 +59,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.105/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

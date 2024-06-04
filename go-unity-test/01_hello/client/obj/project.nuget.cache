@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "82b3gCT2YafcKzm4M7vIODj/eoGnhRdigqpQtg//i7TFxZSMIZir5Lu/CjOl7qgfa8VZiBrzlPAgyjl8Lwe+Tw==",
+  "dgSpecHash": "G/egsD2nPJV2YZHj//MLFRrvRVNwdQmzpi12wR07NUXmYKGFREE5jd1G2DB3Ad/yIHBoMLd19LI+sAU+I7jhOw==",
   "success": true,
-  "projectFilePath": "/home/x14n/code/goproj/x14n/go-unity-test/01_hello/client/client.csproj",
+  "projectFilePath": "/home/x14n/code/goproj/x14n/goExperimental/go-unity-test/01_hello/client/client.csproj",
   "expectedPackageFiles": [
-    "/home/x14n/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.1/microsoft.aspnetcore.app.ref.8.0.1.nupkg.sha512"
+    "/home/x14n/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.5/microsoft.aspnetcore.app.ref.8.0.5.nupkg.sha512"
   ],
   "logs": []
 }
