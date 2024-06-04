@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option go_package = "grpc_basic/protos";
+
+message ServerSideResponse {
+  string SideRes = 1;
+}
+
+message ServerSideRequest{
+  string SideReq = 1;
+}
+
+service ServerSide {
+  //一个ServerSideHello的方法
+  rpc ServerSideHello (ServerSideRequest) returns (stream ServerSideResponse) {}
+}
+//protoc --go_out=../protos --go_opt=paths=source_relative --go-grpc_out=../protos --go-grpc_opt=paths=source_relative *.proto
