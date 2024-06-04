@@ -1,0 +1,31 @@
+version: "3"
+services:
+  elasticsearch:
+    image: elasticsearch
+    container_name: learn-elasticsearch
+    environment:
+      - discovery.type=single-node
+    ports:
+      - "9200:9200"
+    volumes:
+      - ~/document/elasticsearch/data:/usr/share/elasticsearch/data
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.13.3
+    container_name: kibana
+    environment:
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+# volumes:
+#   esdata:
+#     driver: local
+# $ docker run -d --name elasticsearch --net somenetwork -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" elasticsearch:tag
+# mkdir -p ~/document/elasticsearch/data
+# chmod 777 ~/document/elasticsearch/data
+
+# docker run --name es01 --net elastic -p 9200:9200 -it -m 1GB docker.elastic.co/elasticsearch/elasticsearch:8.13.4
+
+# docker run --name kib01 --net elastic -p 5601:5601 docker.elastic.co/kibana/kibana:8.13.4
+# docker exec -it es01 /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token -s kibana
+# docker exec -it es01 /usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic
