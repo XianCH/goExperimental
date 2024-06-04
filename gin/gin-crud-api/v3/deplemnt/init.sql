@@ -1,0 +1,17 @@
+CREATE TABLE IF NOT EXISTS `users` (
+    `id` INT NOT NULL AUTO_INCREMENT COMMENT 'id',
+    `uuid` VARCHAR(255) NOT NULL COMMENT 'uuid',
+    `username` VARCHAR(150) NOT NULL COMMENT 'username',
+    `nickname` VARCHAR(150) DEFAULT NULL COMMENT 'nickname',
+    `email` VARCHAR(255) DEFAULT NULL COMMENT 'EMAIL',
+    `password` VARCHAR(150) NOT NULL COMMENT 'password',
+    `avatar` VARCHAR(250) DEFAULT NULL COMMENT 'avatar',
+    `create_time` TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP(3) COMMENT 'CREATE TIME',
+    `update_time` TIMESTAMP(3) DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(3) COMMENT 'UPDATE TIME',
+    `delete_time` DATETIME(3) DEFAULT NULL COMMENT 'DELETE TIME',
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `username` (`username`),
+    UNIQUE KEY `idx_uuid` (`uuid`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT '用户表';
+
+

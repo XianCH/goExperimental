@@ -1,0 +1,8 @@
+{"level":"info","time":"2024/05/08-23:32:12.933","caller":"/home/x14n/code/goproj/x14n/goExperimental/gin-crud-api/v3/config/zap.go:55","msg":"log 初始化成功"}
+{"level":"info","time":"2024/05/08-23:32:12.933","caller":"/home/x14n/code/goproj/x14n/goExperimental/gin-crud-api/v3/config/zap.go:56","msg":"无法获取网址"}
+{"level":"info","time":"2024/05/08-23:33:03.141","caller":"/home/x14n/code/goproj/x14n/goExperimental/gin-crud-api/v3/config/zap.go:55","msg":"log 初始化成功"}
+{"level":"info","time":"2024/05/08-23:33:03.141","caller":"/home/x14n/code/goproj/x14n/goExperimental/gin-crud-api/v3/config/zap.go:56","msg":"无法获取网址"}
+{"level":"info","time":"2024/05/08-23:33:52.881","caller":"/home/x14n/code/goproj/x14n/goExperimental/gin-crud-api/v3/config/zap.go:55","msg":"log 初始化成功"}
+{"level":"info","time":"2024/05/08-23:33:52.881","caller":"/home/x14n/code/goproj/x14n/goExperimental/gin-crud-api/v3/config/zap.go:56","msg":"无法获取网址"}
+{"level":"info","time":"2024/05/08-23:33:52.881","caller":"/home/x14n/code/goproj/x14n/goExperimental/gin-crud-api/v3/main.go:7","msg":"HELLO"}
+
