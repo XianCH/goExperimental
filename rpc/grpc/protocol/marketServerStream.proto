@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option go_package = "rpctest/grpc/protocol/pb";
+
+package pb;
+
+service StockMarketService {
+  rpc SubscribeStockPrices (SubscribeStockPricesRequest) returns (stream SubscribeStockPricesResponse);
+}
+
+message SubscribeStockPricesRequest {
+  repeated string symbols = 1;
+}
+
+message SubscribeStockPricesResponse {
+  string symbol = 1;
+  double price = 2;
+  string timestamp = 3;
+}

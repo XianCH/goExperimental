@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+option go_package = "rpctest/grpc/protocol/pb";
+
+package pb;
+
+service UserMangerService{
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
+  rpc ListUsers(ListUsersRequest) returns (ListUsersResponse);
+  rpc GetUser(GetUserRequest) returns (GetUserResponse);
+}
+
+message CreateUserRequest {
+    string name = 1;
+    int32 age =2;
+}
+
+message CreateUserResponse{
+  User user =1;  
+}
+
+message GetUserRequest{
+  string id =1;
+}
+
+message GetUserResponse{
+  User user =1;
+}
+
+message ListUsersRequest{}
+
+message ListUsersResponse{
+  repeated User users =1;
+}
+
+message User{
+  string id =1;
+  string name =2;
+  int32 age =3; 
+}
+
