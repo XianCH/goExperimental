@@ -31,9 +31,10 @@ func StartRpcServer() {
 	// pb.RegisterGreeterServer(s, &server{})
 
 	//register userManager server
-	userserver := NewUserManagerServer()
-	pb.RegisterUserMangerServiceServer(s, userserver)
+	// userserver := NewUserManagerServer()
+	// pb.RegisterUserMangerServiceServer(s, userserver)
 
+	pb.RegisterStockServiceServer(s, &StockServer{})
 	log.Printf("server listening at %v", l.Addr())
 	if err := s.Serve(l); err != nil {
 		log.Fatalf("Failed to serve: %v", err)

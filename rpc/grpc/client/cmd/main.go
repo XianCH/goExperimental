@@ -4,5 +4,6 @@ import "rpctest/grpc/client"
 
 func main() {
 	// client.StartGreeterClient()
-	client.StartUserManagerClient()
+	// client.StartUserManagerClient()
+	client.StartStockClient()
 }
