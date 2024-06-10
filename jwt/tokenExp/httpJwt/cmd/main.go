@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/x14n/goExperimental/gorm/gorm_database"
-	httpjwt "github.com/x14n/goExperimental/tokenExp/httpJwt"
+	httpjwt "github.com/x14n/goExperimental/jwt/tokenExp/httpJwt"
 )
 
 func main() {

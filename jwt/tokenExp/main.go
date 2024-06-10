@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	jwtexp "github.com/x14n/goExperimental/tokenExp/jwtExp"
+	jwtexp "github.com/x14n/goExperimental/jwt/tokenExp/jwtExp"
 )
 
 func main() {

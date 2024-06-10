@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net"
 
-	xlog "github.com/x14n/goExperimental/logExp/v2"
+	xlog "github.com/x14n/goExperimental/log-current/v2"
 )
 
 func main() {

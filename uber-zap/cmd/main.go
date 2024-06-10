@@ -1,6 +1,6 @@
 package main
 
-import uberzap "github.com/x14n/goExperimental/uberZap"
+import uberzap "github.com/x14n/goExperimental/uber-zap"
 
 func main() {
 	uberzap.ZapConfig()
