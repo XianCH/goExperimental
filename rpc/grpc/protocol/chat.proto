@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option go_package = "rpctest/grpc/protocol/pb";
+
+package pb;
+
+service ChatService {
+    rpc Chat(stream ChatMessage) returns (stream ChatMessage);
+}
+
+message ChatMessage {
+    string user = 1;
+    string message = 2;
+}
+
