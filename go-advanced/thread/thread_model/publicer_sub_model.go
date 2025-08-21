@@ -7,111 +7,103 @@ import (
 	"time"
 )
 
-type (
-	subscriber chan any         //订阅通道
-	topicFunc  func(v any) bool //订阅过滤方法
-)
+type topicFunc func(any) bool
 
-// 发布者对象
+type subscriber chan any
+
 type Publisher struct {
-	m           *sync.RWMutex
+	rw          *sync.RWMutex
 	buffer      int
-	timeOut     time.Duration
+	timeout     time.Duration
 	subscribers map[subscriber]topicFunc
 }
 
-// 创建发布者
-func NewPublisher(publishTimeOut time.Duration, buffer int) *Publisher {
+func NewPublisher(b int, t time.Duration) *Publisher {
 	return &Publisher{
-		buffer:      buffer,
-		timeOut:     publishTimeOut,
+		rw:          &sync.RWMutex{},
+		buffer:      b,
+		timeout:     t,
 		subscribers: make(map[subscriber]topicFunc),
 	}
 }
 
-// 添加一个新的订阅者,订阅所有主题
-func (p *Publisher) Subscribe() chan any {
-	return p.SubscribeTopic(nil)
+// subscribe all
+func (p *Publisher) subscribeAll() chan any {
+	return p.subscribeTopic(nil)
 }
 
-func (p *Publisher) SubscribeTopic(topic topicFunc) chan any {
-	ch := make(chan any, p.buffer)
-	p.m.Lock()
-	p.subscribers[ch] = topic
-	p.m.Unlock()
-	return ch
+func (p *Publisher) subscribeTopic(topic topicFunc) chan any {
+	p.rw.Lock()
+	defer p.rw.Unlock()
+
+	c := make(subscriber, p.buffer)
+	p.subscribers[c] = topic
+	return c
 }
 
-// 退出订阅
-func (p *Publisher) Evict(sub chan any) {
-	p.m.Lock()
-	defer p.m.Unlock()
-
-	delete(p.subscribers, sub)
-	close(sub)
-}
-
-// 发布一个主题
-func (p *Publisher) Publish(v any) {
-	p.m.RLock()
-	defer p.m.RUnlock()
-
-	var wg sync.WaitGroup
-	for sub, topic := range p.subscribers {
-		wg.Add(1)
-		go p.sendTopic(sub, topic, v, &wg)
-	}
-	wg.Wait()
-}
-
-// 发送一个主题
-func (p *Publisher) sendTopic(sub subscriber, topic topicFunc, v any, wg *sync.WaitGroup) {
-	defer wg.Done()
-	if topic != nil && !topic(v) {
-		return
-	}
-
-	select {
-	case sub <- v:
-	case <-time.After(p.timeOut):
-	}
-}
-
-// 关闭发布者对象，同时关闭所有发布者通道
 func (p *Publisher) Close() {
-	p.m.Lock()
-	defer p.m.Unlock()
-
+	p.rw.Lock()
+	defer p.rw.Unlock()
 	for sub := range p.subscribers {
-		delete(
-			p.subscribers, sub)
+		delete(p.subscribers, sub)
 		close(sub)
 	}
 }
 
-func test_pubsub_model() {
-	p := NewPublisher(100*time.Millisecond, 10)
-	defer p.Close()
+func (p *Publisher) Publishe(v any) {
+	wg := sync.WaitGroup{}
+	for sub, topic := range p.subscribers {
+		wg.Add(1)
+		publisherTopic(v, &wg, sub, topic, p.timeout)
+	}
+	wg.Wait()
+}
 
-	all := p.Subscribe()
-	golang := p.SubscribeTopic(func(v any) bool {
+func publisherTopic(v any, wg *sync.WaitGroup, sub subscriber, topic topicFunc, timeout time.Duration) {
+	defer wg.Done()
+	if topic != nil && !topic(v) {
+		return
+	}
+	select {
+	case sub <- v:
+	case <-time.After(timeout):
+	}
+}
+
+func TestModel() {
+	p := NewPublisher(10, 2*time.Second)
+
+	all := p.subscribeAll()
+	golang := p.subscribeTopic(func(v any) bool {
 		if s, ok := v.(string); ok {
 			return strings.Contains(s, "golang")
 		}
 		return false
 	})
-	p.Publish("hello,world")
-	p.Publish("hello.golang")
 
+	p.Publishe("hello world")
+	p.Publishe("hello golang")
+	p.Publishe("hello golang")
+	p.Publishe("hello golang")
+	p.Publishe("hello golang")
+
+	wg := sync.WaitGroup{}
+
+	wg.Add(1)
 	go func() {
+		defer wg.Done() // 确保 goroutine 结束时调用 Done
 		for msg := range all {
-			fmt.Println("all", msg)
+			fmt.Println("all subscriber received:", msg)
 		}
 	}()
 
+	wg.Add(1)
 	go func() {
+		defer wg.Done() // 确保 goroutine 结束时调用 Done
 		for msg := range golang {
-			fmt.Println("golang", msg)
+			fmt.Println("golang subscriber received:", msg)
 		}
 	}()
+	p.Close()
+	wg.Wait()
 }
